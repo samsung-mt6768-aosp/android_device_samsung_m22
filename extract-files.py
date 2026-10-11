@@ -31,71 +31,15 @@ lib_fixups: lib_fixups_user_type = {
 }
 
 blob_fixups: blob_fixups_user_type = {
-    (
-        'vendor/lib64/libnvram.so',
-        'vendor/lib64/libsysenv.so',
-        'vendor/bin/hw/android.hardware.neuralnetworks@1.3-service-mtk-neuron',
-        'vendor/bin/hw/samsung.software.media.c2@1.0-service',
-        'vendor/bin/hw/android.hardware.media.c2@1.2-mediatek-64b'): blob_fixup()
-        .add_needed('libbase_shim.so'),
 
-    (
-        'vendor/bin/hw/vendor.samsung.hardware.light-service',
-        'vendor/lib64/vendor.samsung.hardware.light-V1-ndk_platform.so'): blob_fixup()
+    'vendor/bin/hw/vendor.samsung.hardware.light-service': blob_fixup()
         .replace_needed('android.hardware.light-V1-ndk_platform.so', 'android.hardware.light-V1-ndk.so'),
 
     (
-        'vendor/lib/sensors.inputvirtual.so',
-        'vendor/lib/sensors.sensorhub.so',
-        'vendor/lib64/sensors.inputvirtual.so',
-        'vendor/lib64/sensors.sensorhub.so',
-        'vendor/lib/hw/audio.primary.mt6768.so',
-        'vendor/bin/hw/vendor.samsung.hardware.camera.provider@4.0-service_64'): blob_fixup()
-        .replace_needed('libutils.so', 'libutils-v31.so'),
+        'vendor/bin/hw/nxp.android.hardware.nfc@1.2-service',
+        'vendor/lib64/nfc_nci_nxpsn.so'): blob_fixup()
+            .add_needed('libbase_shim.so'),
 
-     (
-         'vendor/lib/hw/audio.primary.mt6768.so',
-         'vendor/bin/hw/android.hardware.media.c2@1.2-mediatek-64b') : blob_fixup()
-        .add_needed('libstagefright_foundation-v33.so'),
-
-     (
-         'vendor/lib/hw/audio.primary.mt6768.so',
-         'vendor/bin/hw/android.hardware.media.c2@1.2-mediatek-64b',
-         'vendor/lib/libcodec2_hidl@1.0.so',
-         'vendor/lib/libcodec2_hidl@1.1.so',
-         'vendor/lib/libcodec2_hidl@1.2.so',
-         'vendor/lib64/libcodec2_hidl@1.0.so',
-         'vendor/lib64/libcodec2_hidl@1.1.so',
-         'vendor/lib64/libcodec2_hidl@1.2.so') : blob_fixup()
-        .add_needed('libgraphicbuffersource_shim.so'),
-
-     (
-        'vendor/bin/hw/android.hardware.media.c2@1.2-mediatek-64b',
-        'vendor/bin/hw/samsung.software.media.c2@1.0-service'): blob_fixup()
-        .add_needed('libui_shim.so'),
-
-     'vendor/bin/hw/samsung.software.media.c2@1.0-service': blob_fixup()
-        .replace_needed('libstagefright_bufferqueue_helper.so', 'libstagefright_bufferqueue_helper-v31.so'),
-
-     (
-        'vendor/lib/libcodec2_vndk.so',
-        'vendor/lib64/libcodec2_vndk.so'): blob_fixup()
-        .replace_needed('libui.so', 'libui-v35.so'),
-
-     'vendor/bin/hw/vendor.samsung.hardware.camera.provider@4.0-service_64': blob_fixup()
-        .add_needed('libprocessgroup_shim.so')
-        .replace_needed('libbinder.so', 'libbinder-v31.so')
-        .replace_needed('libhidlbase.so', 'libhidlbase-v31.so'),
-
-    (
-        'vendor/lib/hw/audio.primary.mt6768.so',
-        'vendor/lib/librt_extamp_intf.so',
-        'vendor/lib64/hw/audio.primary.mt6768.so',
-        'vendor/lib64/librt_extamp_intf.so',): blob_fixup()
-        .replace_needed('libtinyxml2.so', 'libtinyxml2-v34.so'),
-
-     'vendor/etc/init/android.hardware.media.c2@1.2-mediatek.rc': blob_fixup()
-        .regex_replace('/vendor/bin/hw/android.hardware.media.c2@1.2-mediatek', '/vendor/bin/hw/android.hardware.media.c2@1.2-mediatek-64b'),
 }  # fmt: skip
 
 module = ExtractUtilsModule(
